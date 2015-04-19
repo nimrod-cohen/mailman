@@ -1,0 +1,242 @@
+body {
+    padding-top: 70px;
+    padding-bottom: 40px;
+}
+
+#txtHtmlPreview
+{
+    border:solid 1px #ccc;
+    height: 414px;
+    width:100%;
+    padding:6px 12px;
+    overflow: scroll;
+}
+
+.form-group .nav.nav-tabs
+{
+    border-bottom: 0;
+}
+
+.form-group small
+{
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.scroll-wrapper
+{
+    position: relative;
+}
+
+.scroll-pane
+{
+    min-height: 117px;
+    overflow-x: visible;
+    white-space: nowrap;
+    display: block;
+}
+.scroll-pane img
+{
+    border:solid 1px gray;
+    margin:3px;
+    position:relative;
+}
+
+.search-list-panel
+{
+    max-height: 221px;
+    overflow: scroll;
+}
+
+/* login form */
+
+#login-body
+{
+    background-color:#e0e0e0;
+    background-image: linear-gradient(white 1px, transparent 1px),
+    linear-gradient(90deg, white 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+    background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
+}
+
+.login-alert
+{
+    margin: 20px auto;
+    width: 70%;
+}
+#login-block{
+    padding-top: 50px;
+    padding-bottom: 25px;
+}
+#login-block h3{
+    color: #FFF;
+    text-align: center;
+    font-size:1.5em;
+    opacity: 0.8;
+    text-shadow: 2px 2px 2px #000;
+    font-weight: normal;
+
+}
+
+.login-box{
+    max-width:480px;
+    background: #EEF0F4;
+    border:7px solid rgba(255, 255, 255, 0.31);
+    -webkit-background-clip: padding-box; /* for Safari */
+    -moz-background-clip: padding-box; /* for old Firefox */
+    -o-background-clip: padding-box; /* for old Firefox */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding-bottom: 20px;
+}
+
+.login-box legend
+{
+    padding:10px;
+    margin:5px 10px 20px 10px;
+}
+
+.login-logo{
+    text-align: center;
+    padding: 15px 0 10px;
+}
+
+.login-logo img{
+    border:0;
+}
+.login-form form p{
+    width:80%;
+    margin: 5px auto 10px;
+    text-align: center;
+}
+/* for logo animation */
+.login-logo a{
+    opacity: 0.7;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+.login-logo a:hover{
+    opacity: 1;
+}
+
+.login-box hr{
+    margin:10px auto 20px;
+    width:70%;
+    border-top:1px solid #dddbda;
+    border-bottom:1px solid #FFF;
+}
+
+/* Login Form */
+.login-form input{
+    display: block;
+    margin:0 auto 15px;
+    width:70%;
+    background: white;
+    border:1px solid #bfbfbf;
+    color:#6c6c6c;
+    padding: 8px;
+
+}
+
+/* Login Button */
+.btn.btn-red {
+    width: 120px;
+    display:block;
+    margin: 20px auto;
+    color: white;
+    text-transform:uppercase ;
+    text-shadow: 1px 2px 2px #c44c4c;
+    background: #e75a5a;
+    border: 1px solid #953a3a;
+    -webkit-box-shadow: inset 0 1px 2px #ff8c8c;
+    -moz-box-shadow: inset 0 1px 2px #ff8c8c;
+    box-shadow: inset 0 1px 2px #ff8c8c;
+    -webkit-transition: background .5s ease-in-out;
+    -moz-transition: background .5s ease-in-out;
+    -o-transition: background .5s ease-in-out;
+    transition: background .5s ease-in-out;
+
+}
+.btn.btn-red:hover {
+    background: #d94444;
+}
+.btn.btn-red.btn-reset{
+    width: 180px;
+}
+.login-links{
+    text-align: center;
+}
+.login-links a{
+    color: #6c6c6c;
+    display:inline-block;
+    padding:5px;
+
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;;
+}
+.login-links a:hover{
+    text-decoration: none;
+    color:#e13c3c;
+}
+
+label.checkbox {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+label.checkbox input{
+    width:25px;
+    margin: 4px 0 0;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+#footer-text, #footer-text a{
+    text-align: center;
+    color:#FFF;
+    opacity: 1;
+    text-shadow: 1px 1px 1px #000;
+}
+
+#login-bg
+{
+    background: white;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    min-height: 70%;
+    bottom: 0;
+    z-index: -1;
+}
+
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers)
+=================================================================== */
+@media only screen and (max-width: 479px) {
+    #login-block{
+        padding-top: 10px;
+        padding-bottom: 25px;
+    }
+
+}
+
+/* Tablet Portrait Size to Tablet Landscape Size (devices and browsers)
+=================================================================== */
+@media only screen and (min-width: 480px) and (max-width: 767px){
+    #login-block {
+        margin: 0 auto;
+        width: 420px;
+    }
+
+}

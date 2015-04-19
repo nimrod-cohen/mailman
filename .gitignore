@@ -1,0 +1,11 @@
+
+application/cache/
+
+application/config/config.php
+
+application/config/database.php
+
+img/temp/
+
+session/cache/
+todo.txt
