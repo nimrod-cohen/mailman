@@ -50,9 +50,11 @@ class Send extends CI_Controller {
 		$to = $this->input->post('rbListAddress');
 		$subject = $this->input->post('txtSubject');
 		$domain = $this->input->post('rbDomain');
-		$message = $this->input->post('txtHtml');
+		$message = $this->input->post('txtSterilized');
 		$textVersion = $this->input->post('txtTextVersion');
 		$tempDir = $this->input->post('tempDir');
+
+		$message = base64_decode($message);
 
 		//find all cid images and inline them
 		$files = array();

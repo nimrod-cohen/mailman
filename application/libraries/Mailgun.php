@@ -11,7 +11,7 @@ class Mailgun {
 	private $curl;
 	private $apiKey;
 
-	const apiEndpoint = "https://api.mailgun.net/v2/";
+	const apiEndpoint = "https://api.mailgun.net/v3/";
 
 	public function __construct()
 	{

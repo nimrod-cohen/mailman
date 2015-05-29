@@ -110,13 +110,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</li>
 								</ul>
 								<textarea class="form-control" id="txtHtml" name="txtHtml" cols="25" rows="20"></textarea>
+								<textarea class="hidden" style="display:none" id="txtSterilized" name="txtSterilized"></textarea>
 								<iframe id="txtHtmlPreview" style="display:none"></iframe>
 								<textarea class="form-control" style="display:none" id="txtTextVersion" name="txtTextVersion" cols="25" rows="20"></textarea>
 							</div>
 							<div class="form-group">
-								<input id="btnUpload" name="btnUpload" type="file" style="display:none;" multiple/>
-								<button id="btnUploadView" type="button" class="btn btn-default">Choose image files</button>
-								<small>PNG, JPG, or GIF</small>
+								<ul class="nav nav-tabs">
+									<li>
+										<input id="btnUpload" name="btnUpload" type="file" style="display:none;" multiple/>
+										<button id="btnUploadView" type="button" class="btn btn-default">Choose image files</button>
+										<small>PNG, JPG, or GIF</small>
+									</li>
+									<li class="pull-right">
+										<button id="btnUnsubscribe" class="btn btn-primary">Unsubscribe URL</button>
+									</li>
 							</div>
 							<div class="row clearfix" id="imagesContainer" style="display:none">
 								<div class="col-md-12 scroll-wrapper">
@@ -161,6 +168,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		$("#btnSend").click(function()
 		{
+			var txt = $("#txtHtml").val();
+			txt = MailMan.base64_encode(txt);
+			$("#txtSterilized").val(txt);
 			MailMan.submitAjaxForm("<?php echo base_url(); ?>send/send","form#frmSend",
 				function(data)
 				{
@@ -201,8 +211,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			var doc = $("#txtHtmlPreview").get(0).contentWindow.document;
 			$('body',doc).html(html);
 
+			var html = $('body',doc).clone();
+			html.find("head").remove();
+			html.find("style").remove();
+			html.find("script").remove();
+
+			var txt = html.text();
+
+			while(/\r?\n\s+/g.test(txt))
+				txt = txt.replace(/(\r?\n)\s+/g,"$1");
+			while(/\s+\r?\n/g.test(txt))
+				txt = txt.replace(/\s+(\r?\n)/g,"$1");
+			txt = txt.replace(/(\r?\n)(?:\r?\n)+/g,"$1");
+
 			if($("#chkSynchronize").find(".btn.active").text() == "ON")
-				$("#txtTextVersion").val($('body',doc).text());
+				$("#txtTextVersion").val(txt);
+
+			html.remove();
 		}
 
 		$('#lnkHtmlPreview').click(function()
@@ -218,6 +243,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		$("#btnUploadView").click(function(){
 			$("#btnUpload").click();
+		});
+
+		$("#btnUnsubscribe").click(function(e){
+			e.preventDefault();
+			$("#txtHtml").insertAtCaret("%unsubscribe_url%");
 		});
 
 		$('#btnUpload').on('change', function(event){
