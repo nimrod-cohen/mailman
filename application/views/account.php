@@ -3,9 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="row clearfix">
 	<div class="col-md-12 column">
-		<h3>
-			Account settings
-		</h3>
 		<form role="form" id="frmAccount" method="POST">
 			<?php echo generate_csrf_field(); ?>
 			<div class="panel panel-primary">

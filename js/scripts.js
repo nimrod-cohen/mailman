@@ -164,4 +164,35 @@ $(document).ready(function()
 
 		return false;
 	});
+
+	//list filtering
+	$(".list-filter-text").keydown(function(ev) {
+		if(ev.keyCode == 13) {
+			ev.preventDefault();
+			$(ev.target).trigger("change");
+			return false;
+		}
+	});
+	$(".list-filter-text").change(function(ev)
+	{
+		ev.preventDefault();
+
+		var search = $(this).val().trim().toLowerCase();
+
+		var listId = $(this).attr("data-for");
+		var searchId = this.id;
+
+		$("#"+listId+" li").each(function()
+		{
+			if($($(this).children()[0]).hasClass("list-filter-text") || search == "" || $(this).text().toLowerCase().indexOf(search)>=0)
+				$(this).show();
+			else
+				$(this).hide();
+		});
+	});
+
+	$('.custom-file-input').on('change',function(){
+		$(this).parent().find(".custom-file-label").text(this.files[0].name);
+	});
+
 });

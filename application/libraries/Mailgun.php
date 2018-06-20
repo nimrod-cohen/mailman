@@ -46,6 +46,39 @@ class Mailgun {
 		return json_decode($result);
 	}
 
+	function suppress($domain,$type,$addresses,$reason)
+	{
+		$list = [];
+
+		foreach($addresses as $address)
+		{
+			$arr = ["address" => $address];
+			if(strlen($reason) && $type == "bounces")
+				$arr["error"] = $reason;
+			$list[] = $arr;
+		}
+
+		$this->curl->create(Mailgun::apiEndpoint.$domain."/".$type);
+		$this->curl->login("api",$this->apiKey);
+
+		$list = json_encode($list);
+
+		$this->curl->post($list);
+		$this->curl->option(CURLOPT_HTTPHEADER,["Content-Type: application/json","Content-Length: ".strlen($list)]);
+
+		$result = $this->curl->execute();
+
+		if(!$result)
+			$result = array("error" => "Suppression uploading failed: ".$this->curl->error_string,"success" => false);
+		else
+		{
+			$result = json_decode($result,true);
+			$result["success"] = true;
+		}
+
+		return $result;
+	}
+
 	function message($domain,$from, $to,$subject,$html,$text,$files )
 	{
 		$this->curl->create(Mailgun::apiEndpoint.$domain."/messages");

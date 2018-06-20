@@ -220,6 +220,10 @@ label.checkbox input{
     z-index: -1;
 }
 
+#context-menu
+{
+    width:100%;
+}
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers)
 =================================================================== */

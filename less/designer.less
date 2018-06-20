@@ -1,0 +1,122 @@
+//reset
+.email-designer, .email-designer *
+{
+    padding:0;
+    margin:0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.email-designer
+{
+    .left-pane
+    {
+        background: #2c2f33;
+        display: inline-block;
+        width: 376px;
+        height: 100%;
+        float: left;
+        color:white;
+
+        .nav
+        {
+            ul li
+            {
+                font-weight: bold;
+                width: 33.33333%;
+                text-align: center;
+                border-bottom: 3px solid #3b3e43;
+                padding: 0 16px;
+                height: 42px;
+                box-sizing: border-box;
+                line-height: 42px;
+                float: left;
+                list-style: none;
+                font-size: 14px;
+                color: #becfcf;
+                margin-bottom: -1px;
+                position: relative;
+                cursor: pointer;
+
+                &.active, &:hover
+                {
+                    color:white;
+                }
+            }
+        }
+
+        .tab
+        {
+            padding: 0 20px;
+            padding-bottom: 25px;
+            margin-top:20px;
+
+            &#elements .block
+            {
+                cursor: move;
+                width: 99px;
+                height: 95px;
+                margin-bottom: 14px;
+                border: 1px solid #3b3e43;
+                border-radius: 6px;
+                background-color: #222;
+                text-align: center;
+                float: left;
+                margin-right: 13px;
+                position: relative;
+
+                &:hover
+                {
+                    background-color: #2f2f2f;
+                    border-color: #20a0ff;
+                    color: #fff;
+                }
+
+                .material-icons
+                {
+                    font-family: 'Material Icons';
+                    margin-top:25px;
+                    font-size:25px;
+                    display:block;
+                }
+            }
+
+        }
+    }
+
+    .right-pane
+    {
+        margin-left:376px;
+        position:relative;
+        display: block;
+        padding: 0;
+        background-color:#f6f8f1;
+
+        .email-editor
+        {
+            width:600px;
+            margin:0 auto;
+            border:solid 1px #c8c8c8;
+            min-height: 500px;
+
+            .content
+            {
+                width: 100%;
+                max-width: 600px;
+
+                .drag-receiver
+                {
+                    width:100%;
+                    border:solid 1px lightgray;
+                    min-height: 100px;
+                    display: inline-block;
+
+                    &.dragging-in
+                    {
+                        border:dotted 1px black;
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -9,3 +9,8 @@ img/temp/
 
 session/cache/
 todo.txt
+
+.idea
+.htaccess
+.DS_Store
+application/.htaccess
