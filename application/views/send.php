@@ -176,8 +176,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$("#btnSend").click(function()
 		{
 			var txt = $("#txtHtml").val();
+
+			txt = MailMan.hebrew2Unicode(txt)
+
 			txt = MailMan.base64_encode(txt);
+
 			$("#txtSterilized").val(txt);
+
 			MailMan.submitAjaxForm("<?php echo base_url(); ?>send/send","form#frmSend",
 				function(data)
 				{
@@ -337,7 +342,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			{
 				e.preventDefault();
 
-				$("#txtHtml").insertAtCaret($('#imgName').text());
+				$("#txtHtml").insertAtCaret('cid:'+$('#imgName').text());
 				$("#context-menu").children("ul").css("display","none");
 			}
 		});

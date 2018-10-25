@@ -43,45 +43,69 @@ class Send extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	private function validateField($id,$name,$type = 'text',$mandatory = true)
+	{
+		$field = trim($this->input->post($id));
+
+		if($mandatory && strlen($field) == 0)
+			throw new Exception("Missing ׳".$name."׳ field");
+
+		switch($type)
+		{
+			case 'email':
+				if(!filter_var($field, FILTER_VALIDATE_EMAIL))
+					throw new Exception("׳".$name."׳ is not a valid email address ");
+		}
+
+		return $field;
+	}
+
 	public function send()
 	{
-		$from = $this->input->post('txtFromName');
-		$from .= " <".$this->input->post('txtFromEmail').">";
-		$to = $this->input->post('rbListAddress');
-		$subject = $this->input->post('txtSubject');
-		$domain = $this->input->post('rbDomain');
-		$message = $this->input->post('txtSterilized');
-		$textVersion = $this->input->post('txtTextVersion');
-		$tempDir = $this->input->post('tempDir');
-
-		$message = base64_decode($message);
-
-		//find all cid images and inline them
-		$files = array();
-
-		$count = preg_match_all("/<img.+?src=(?:['\"]cid:(.*?)[\"']|cid:(.*?)\s).*?>/",
-			$message, $files );
-
-		if($count > 0)
+		try
 		{
-			$files = $files[1];
+			$from = $this->validateField('txtFromName','From');
+			$fromEmail = $this->validateField('txtFromEmail','From Email','email');
+			$from .= " <" . $fromEmail . ">";
+			$to = $this->validateField('rbListAddress', 'Target');
+			$subject = $this->validateField('txtSubject','Subject');
+			$domain = $this->validateField('rbDomain','Domain');
+			$message = $this->validateField('txtSterilized','Message');
+			$textVersion = $this->validateField('txtTextVersion','Text Version','text',false);
+			$tempDir = $this->validateField('tempDir','temp dir','text',false);
 
-			$sep = DIRECTORY_SEPARATOR;
-			for ($i = 0; $i < count($files); $i++) {
-				$files[$i] = array("path" => dirname(__FILE__) . $sep . ".." . $sep . ".." . $sep . "img" . $sep . "temp" . $sep . $tempDir . "/" . $files[$i],
-					"name" => $files[$i]);
-				$finfo = finfo_open(FILEINFO_MIME_TYPE);
-				$files[$i]["mime"] = finfo_file($finfo, $files[$i]["path"]);
+			$message = base64_decode($message);
+
+			//find all cid images and inline them
+			$files = [];
+			if (preg_match_all("/<img.+?src=(?:['\"]cid:(.*?)[\"']|cid:(.*?)\s).*?>/", $message, $files) > 0)
+			{
+				$files = $files[1];
+
+				$sep = DIRECTORY_SEPARATOR;
+				for ($i = 0; $i < count($files); $i++)
+				{
+					$files[$i] = array("path" => dirname(__FILE__) . $sep . ".." . $sep . ".." . $sep . "img" . $sep . "temp" . $sep . $tempDir . "/" . $files[$i],
+						"name" => $files[$i]);
+					$finfo = finfo_open(FILEINFO_MIME_TYPE);
+					$files[$i]["mime"] = finfo_file($finfo, $files[$i]["path"]);
+				}
 			}
+			else
+				$files = [];
+
+			$result = $this->mailgun->message($domain, $from, $to, $subject, $message, $textVersion, $files);
+
+			if ($result["success"] === false)
+				header('HTTP/1.0 400 Bad Request', true, 400);
+			echo json_encode($result);
 		}
-		else
-			$files = array();
-
-		$result = $this->mailgun->message($domain,$from,$to,$subject,$message,$textVersion,$files);
-
-		if($result["success"] === false)
+		catch(Exception $ex)
+		{
 			header('HTTP/1.0 400 Bad Request', true, 400);
-		echo json_encode($result);
+			$result["success"] = false;
+			$result["message"] = $ex->getMessage();
+		}
 	}
 
 	public function uploadImages()

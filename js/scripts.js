@@ -52,6 +52,38 @@ if(!window["MailMan"])
 				});
 		},
 
+		//turn hebrew chars to unicode HTML entities.
+		hebrew2Unicode: function(txt)
+		{
+			return txt.replace(/א/g,'&#x5D0;')
+				.replace(/ב/g,'&#x5D1;')
+				.replace(/ג/g,'&#x5D2;')
+				.replace(/ד/g,'&#x5D3;')
+				.replace(/ה/g,'&#x5D4;')
+				.replace(/ו/g,'&#x5D5;')
+				.replace(/ז/g,'&#x5D6;')
+				.replace(/ח/g,'&#x5D7;')
+				.replace(/ט/g,'&#x5D8;')
+				.replace(/י/g,'&#x5D9;')
+				.replace(/ך/g,'&#x5DA;')
+				.replace(/כ/g,'&#x5DB;')
+				.replace(/ל/g,'&#x5DC;')
+				.replace(/ם/g,'&#x5DD;')
+				.replace(/מ/g,'&#x5DE;')
+				.replace(/ן/g,'&#x5DF;')
+				.replace(/נ/g,'&#x5E0;')
+				.replace(/ס/g,'&#x5E1;')
+				.replace(/ע/g,'&#x5E2;')
+				.replace(/ף/g,'&#x5E3;')
+				.replace(/פ/g,'&#x5E4;')
+				.replace(/ץ/g,'&#x5E5;')
+				.replace(/צ/g,'&#x5E6;')
+				.replace(/ק/g,'&#x5E7;')
+				.replace(/ר/g,'&#x5E8;')
+				.replace(/ש/g,'&#x5E9;')
+				.replace(/ת/g,'&#x5EA;')
+		},
+
 		base64_encode : function(data)
 		{
 			var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
